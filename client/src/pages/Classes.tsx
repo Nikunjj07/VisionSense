@@ -14,7 +14,6 @@ export default function Classes() {
     {
         id: 1,
         name: "Class-12-A",
-        teacher: "Mr. Sarah Wilson",
         students: 45,
         lectures: [
             { id: 1, name: "Lecture-1", status: "Finished", time: "09:00 AM" },
@@ -27,7 +26,6 @@ export default function Classes() {
     {
         id: 2,
         name: "Class-11-B",
-        teacher: "Mr. John Doe",
         students: 38,
         lectures: [
             { id: 1, name: "Lecture-1", status: "Finished", time: "09:00 AM" },
@@ -40,7 +38,6 @@ export default function Classes() {
     {
         id: 3,
         name: "Class-10-C",
-        teacher: "Mrs. Emily Davis",
         students: 42,
         lectures: [
             { id: 1, name: "Lecture-1", status: "Scheduled", time: "09:00 AM" },
@@ -52,7 +49,6 @@ export default function Classes() {
     },
 ])
     const [newClassName, setNewClassName] = useState('')
-    const [newTeacherName, setNewTeacherName] = useState('')
     const [newLectures, setNewLectures] = useState(5)
     const [newStudentCount, setNewSetstudentCount] = useState(0);
     const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -61,11 +57,9 @@ export default function Classes() {
     useEffect(() => {
         if (editingClass) {
             setNewClassName(editingClass.name)
-            setNewTeacherName(editingClass.teacher)
             setNewLectures(editingClass.lectures.length)
         } else {
             setNewClassName('')
-            setNewTeacherName('')
             setNewLectures(5)
         }
     }, [editingClass])
@@ -92,14 +86,13 @@ export default function Classes() {
                         <form onSubmit={(e) => {
                             e.preventDefault()
                             if (editingClass) {
-                                setClassesData(classesData.map(c => c.id === editingClass.id ? { ...c, name: newClassName, teacher: newTeacherName } : c))
+                                setClassesData(classesData.map(c => c.id === editingClass.id ? { ...c, name: newClassName } : c))
                                 setEditingClass(null)
                             } else {
                                 const newId = classesData.length > 0 ? Math.max(...classesData.map(c => c.id)) + 1 : 1
                                 const newClass = {
                                     id: newId,
                                     name: newClassName,
-                                    teacher: newTeacherName,
                                     students: newStudentCount,
                                     lectures: Array.from({ length: newLectures }, (_, i) => ({
                                         id: i + 1,
@@ -111,7 +104,6 @@ export default function Classes() {
                                 setClassesData([...classesData, newClass])
                             }
                             setNewClassName('')
-                            setNewTeacherName('')
                             setNewSetstudentCount(0)
                             setNewLectures(5)
                             setIsDialogOpen(false)
@@ -122,12 +114,6 @@ export default function Classes() {
                                     Class Name
                                 </Label>
                                 <Input id="name" value={newClassName} onChange={(e) => setNewClassName(e.target.value)} placeholder="e.g. Class 12-A" />
-                            </div>
-                            <div className="grid gap-2">
-                                <Label htmlFor="teacher">
-                                    Teacher Name
-                                </Label>
-                                <Input id="teacher" value={newTeacherName} onChange={(e) => setNewTeacherName(e.target.value)} placeholder="e.g. Mr. John Doe" />
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="lectures">
@@ -157,7 +143,7 @@ export default function Classes() {
                         <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
                             <div className="space-y-1">
                                 <CardTitle className="text-base font-semibold">{cls.name}</CardTitle>
-                                <CardDescription>{cls.teacher} • {cls.students} Students</CardDescription>
+                                <CardDescription>{cls.students} Students</CardDescription>
                             </div>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
