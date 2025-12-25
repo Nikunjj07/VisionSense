@@ -1,8 +1,12 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mainRouter from './routes/Index.js';
+import connectDB from './db.js';
 
+connectDB();
 
 const app = express();
 app.use(express.json());
