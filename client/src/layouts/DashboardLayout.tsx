@@ -1,4 +1,5 @@
-import { Outlet } from "react-router-dom"
+import { useState } from "react"
+import { Outlet} from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
 import {
@@ -15,8 +16,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { PieChart, School, FileText, Video, Moon, Sun, LogOut, EyeIcon } from "lucide-react"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {  PieChart, School, FileText, Video, Moon, Sun ,LogOut, EyeIcon } from "lucide-react"
+import { Avatar, AvatarFallback, } from "@/components/ui/avatar"
 
 import { useTheme } from "@/components/theme-provider"
 import { DialogDescription,DialogClose,Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
@@ -24,8 +25,10 @@ import { DialogDescription,DialogClose,Dialog, DialogContent, DialogTitle, Dialo
 
 
 export default function DashboardLayout() {
+
     const { setTheme, theme } = useTheme()
-const navigate = useNavigate();
+const naviagte = useNavigate();
+   
 
 const items = [
   {
@@ -75,7 +78,7 @@ const items = [
             (
                 <SidebarMenuButton variant="accent" onClick={()=>
                 {
-                    navigate(item.url)
+                    naviagte(item.url)
                 }
                 }>
                     <item.icon size={15}/>
@@ -125,7 +128,7 @@ const items = [
         </SidebarFooter>
     </Sidebar>
 <section className="h-full w-full flex flex-col justify-start items-center px-10 py-5">
-<nav className="w-full flex justify-between items-center h-fit">
+<nav className="w-full flex justify-between items-center h-fit mb-5">
 
 <SidebarTrigger/>
 

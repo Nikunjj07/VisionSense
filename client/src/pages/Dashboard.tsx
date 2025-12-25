@@ -43,6 +43,19 @@ export default function Dashboard() {
                             <SelectItem value="area">Area Chart</SelectItem>
                         </SelectContent>
                     </Select>
+                      <Select>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Class" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="10a">10th-A</SelectItem>
+                             <SelectItem value="10b">10th-B</SelectItem>
+                              <SelectItem value="10c">10th-C</SelectItem>
+                               <SelectItem value="10d">10th-D</SelectItem>
+                          <SelectItem value="10e">10th-E</SelectItem>
+                          <SelectItem value="10f">10th-F</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
             </div>
 

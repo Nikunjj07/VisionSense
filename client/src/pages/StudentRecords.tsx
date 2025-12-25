@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-
+import { addStudentService } from "@/services/studentapi"
 export default function StudentRecords() {
     const [studentsData, setStudentsData] = useState([
         { id: "ST-001", name: "Alice Johnson", class: "10-A", status: "Uploaded" },
@@ -100,8 +100,9 @@ export default function StudentRecords() {
                                 {editingStudent ? 'Edit the student details.' : 'Enter student details here.'}
                             </DialogDescription>
                         </DialogHeader>
-                        <form onSubmit={(e) => {
+                        <form onSubmit={async (e) => {
                             e.preventDefault()
+                            
                             if (editingStudent) {
                                 setStudentsData(studentsData.map(s => s.id === editingStudent.id ? { ...s, name: newName, class: newClass } : s))
                                 setEditingStudent(null)
@@ -114,6 +115,7 @@ export default function StudentRecords() {
                                     class: newClass,
                                     status: "Not Uploaded"
                                 }
+                                await addStudentService({spid:newId,name:newName,classId:newClass})
                                 setStudentsData([...studentsData, newStudent])
                             }
                             setNewName('')
