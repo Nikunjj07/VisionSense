@@ -1,5 +1,5 @@
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Plus, MoreVertical, Upload, CloudUpload, X, FileImage } from "lucide-react"
@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export default function StudentRecords() {
     const [studentsData, setStudentsData] = useState([
@@ -24,6 +25,17 @@ export default function StudentRecords() {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [newName, setNewName] = useState('')
     const [newClass, setNewClass] = useState('')
+    const [editingStudent, setEditingStudent] = useState<any>(null)
+
+    useEffect(() => {
+        if (editingStudent) {
+            setNewName(editingStudent.name)
+            setNewClass(editingStudent.class)
+        } else {
+            setNewName('')
+            setNewClass('')
+        }
+    }, [editingStudent])
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -83,22 +95,27 @@ export default function StudentRecords() {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle>Add New Student</DialogTitle>
+                            <DialogTitle>{editingStudent ? 'Edit Student' : 'Add New Student'}</DialogTitle>
                             <DialogDescription>
-                                Enter student details here.
+                                {editingStudent ? 'Edit the student details.' : 'Enter student details here.'}
                             </DialogDescription>
                         </DialogHeader>
                         <form onSubmit={(e) => {
                             e.preventDefault()
-                            const maxId = studentsData.length > 0 ? Math.max(...studentsData.map(s => parseInt(s.id.split('-')[1]))) : 0
-                            const newId = `ST-${String(maxId + 1).padStart(3, '0')}`
-                            const newStudent = {
-                                id: newId,
-                                name: newName,
-                                class: newClass,
-                                status: "Not Uploaded"
+                            if (editingStudent) {
+                                setStudentsData(studentsData.map(s => s.id === editingStudent.id ? { ...s, name: newName, class: newClass } : s))
+                                setEditingStudent(null)
+                            } else {
+                                const maxId = studentsData.length > 0 ? Math.max(...studentsData.map(s => parseInt(s.id.split('-')[1]))) : 0
+                                const newId = `ST-${String(maxId + 1).padStart(3, '0')}`
+                                const newStudent = {
+                                    id: newId,
+                                    name: newName,
+                                    class: newClass,
+                                    status: "Not Uploaded"
+                                }
+                                setStudentsData([...studentsData, newStudent])
                             }
-                            setStudentsData([...studentsData, newStudent])
                             setNewName('')
                             setNewClass('')
                             setIsDialogOpen(false)
@@ -225,9 +242,20 @@ export default function StudentRecords() {
                                                 </DialogContent>
                                             </Dialog>
                                         ) : (
-                                            <Button variant="ghost" size="icon">
-                                                <MoreVertical className="h-4 w-4" />
-                                            </Button>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="ghost" size="icon">
+                                                        <MoreVertical className="h-4 w-4" />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent>
+                                                    <DropdownMenuItem onClick={() => {
+                                                        setEditingStudent(student)
+                                                        setIsDialogOpen(true)
+                                                    }}>Edit</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => setStudentsData(studentsData.filter(s => s.id !== student.id))}>Delete</DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
                                         )}
                                     </TableCell>
                                 </TableRow>
