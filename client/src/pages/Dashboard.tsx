@@ -1,28 +1,32 @@
 
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Line, LineChart, CartesianGrid, Area, AreaChart } from "recharts"
 
-const classData = [
-    { name: "Class A", average: 85, attendance: 92 },
-    { name: "Class B", average: 78, attendance: 88 },
-    { name: "Class C", average: 92, attendance: 95 },
-    { name: "Class D", average: 65, attendance: 75 },
-    { name: "Class E", average: 72, attendance: 82 },
-]
 
-const studentData = [
-    { name: "Mon", present: 450, absent: 50 },
-    { name: "Tue", present: 460, absent: 40 },
-    { name: "Wed", present: 455, absent: 45 },
-    { name: "Thu", present: 470, absent: 30 },
-    { name: "Fri", present: 440, absent: 60 },
-]
+
 
 export default function Dashboard() {
     const [chartType, setChartType] = useState("bar")
+    const [classData, _setClassData] = useState([
+        { name: "Class A", average: 85, attendance: 92 },
+        { name: "Class B", average: 78, attendance: 88 },
+        { name: "Class C", average: 92, attendance: 95 },
+        { name: "Class D", average: 65, attendance: 75 },
+        { name: "Class E", average: 72, attendance: 82 },
+    ])
+    const [studentData, _setStudentData] = useState([
+        { name: "Mon", present: 450, absent: 50 },
+        { name: "Tue", present: 460, absent: 40 },
+        { name: "Wed", present: 455, absent: 45 },
+        { name: "Thu", present: 470, absent: 30 },
+        { name: "Fri", present: 440, absent: 60 },
+    ])
+    const [totalStudents, _setTotalStudents] = useState(3000);
+    const [activeClasses, _setActiveClasses] = useState(20);
+    const [attendanceRate, _setAttendanceRate] = useState("56%");
 
     return (
         <div className="flex flex-col gap-6">
@@ -121,7 +125,7 @@ export default function Dashboard() {
                         <CardTitle>Total Students</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">1,234</div>
+                        <div className="text-3xl font-bold">{totalStudents}</div>
                     </CardContent>
                 </Card>
                 <Card>
@@ -129,7 +133,7 @@ export default function Dashboard() {
                         <CardTitle>Active Classes</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">42</div>
+                        <div className="text-3xl font-bold">{activeClasses}</div>
                     </CardContent>
                 </Card>
                 <Card>
@@ -137,7 +141,7 @@ export default function Dashboard() {
                         <CardTitle>Attendance Rate</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold">95%</div>
+                        <div className="text-3xl font-bold">{attendanceRate}</div>
                     </CardContent>
                 </Card>
             </div>

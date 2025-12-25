@@ -95,7 +95,7 @@ export default function DashboardLayout() {
                     </Button>
 
                     <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarImage src="https://github.com/shadcn.png" />     //Dynamic Avatar Image
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                 </header>
