@@ -23,4 +23,30 @@ export const initializeSession = z.object({
 
 export type InitializeSessionType = z.infer<typeof initializeSession>
 
-export const studentData
+export const studentData = z.object({
+    id: z.string(),
+    spid: z.string(),
+    name: z.string(),
+    classId: z.string(),
+    faceEncoding: z.array(z.number())
+})
+
+export type StudentData = z.infer<typeof studentData>
+
+export const classData = z.object({
+    id: z.string(),
+    name: z.string(),
+    students: z.array(z.string())
+})
+
+export type ClassData = z.infer<typeof classData>
+
+export const attendanceData = z.object({
+    id: z.string(),
+    studentId: z.string(),
+    classId: z.string(),
+    date: z.date(),
+    isPresent: z.boolean()
+})
+
+export type AttendanceData = z.infer<typeof attendanceData>
