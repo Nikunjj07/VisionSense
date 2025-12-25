@@ -26,7 +26,7 @@ const StudentSchema: Schema = new Schema({
     },
     faceEncoding: {
         type: String,
-        required: true
+        required: false
     }
 }, {
     timestamps: true
