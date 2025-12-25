@@ -2,16 +2,12 @@ import { Background } from "@/components/background-snippets"
 import { FeatureGrid } from "@/components/feature-section"
 
 import {
-
-
-
   User,
   PieChart,
   BrainCircuit
-  
-
 } from 'lucide-react';
-import { Navbar1 } from "@/components/ui/navbar-1"
+
+import { Navbar1 } from "@/components/ui/navbar-1";
 import TeamSection from "@/components/team";
 import {FooterSection} from "@/components/footer";
 import { Feature2 } from "@/components/feature-2";

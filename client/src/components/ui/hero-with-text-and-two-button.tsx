@@ -1,15 +1,23 @@
-import {  ArrowDown, ArrowRight, Stars } from "lucide-react";
+import {  ArrowDown, ArrowRight, MoveRight, PhoneCall,Stars } from "lucide-react";
 import { Button } from "@/components/ui/button"
 import { Badge } from "./badge";
-
+import { PaperDesignBackground } from "../neon-dither";
 function Hero1() {
   return (
-    <div className="w-full h-auto  px-10" id="Home">
+   <>
+  <PaperDesignBackground className="absolute"/>
+  <div className="w-full flex flex-row justify-center items-center absolute">
+
+<div className="h-[300px] w-[300px] bg-primary rounded-full blur-[150px]"></div>
+
+  </div>
+        <div className="w-full h-auto relative  px-10" id="Home">
+            
       <div className=" mx-auto">
         
         <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col ">
           <div>
-         <Badge variant="outline">Future of attendance-system <Stars size={12} className="ml-2" fill="white"/></Badge>
+         <Badge variant="default">Future of attendance-system <Stars size={12} className="ml-2" fill="white"/></Badge>
           </div>
           <div className="flex gap-4 flex-col">
      
@@ -47,6 +55,8 @@ function Hero1() {
       </div>
       
     </div>
+   </>
+
   );
 }
 

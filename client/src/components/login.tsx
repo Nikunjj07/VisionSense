@@ -3,19 +3,28 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useNavigate } from "react-router-dom"
+import { loginService } from "@/services/authapi"
+
 export function LoginForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 const navigate= useNavigate();
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     // Handle login logic here
     console.log("Login attempted with:", { email, password })
+    try{
+      await loginService({email: email, password:password})
+    }catch(err){
+      console.log("ERROR: ",err)
+    }
   }
 
   return (
 <>
-<div className="h-screen w-screen flex justify-center items-center px-10">
+<div style={{
+   background: "radial-gradient(circle at 47% 125%,#ff003700, #2b3027ff)"
+}}  className="h-screen w-screen flex justify-center items-center px-10">
     <div className="w-full max-w-sm">
       <div className="space-y-8">
         {/* Header Section */}
@@ -38,7 +47,7 @@ const navigate= useNavigate();
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-background border-border"
+              className="bg-background border-border h-12"
             />
           </div>
 
@@ -54,7 +63,7 @@ const navigate= useNavigate();
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="bg-background border-border"
+              className="bg-background border-border h-12"
             />
           </div>
 

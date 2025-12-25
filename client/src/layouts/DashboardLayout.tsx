@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Outlet, NavLink } from "react-router-dom"
+import { Outlet} from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
 import {
@@ -16,8 +16,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Menu, PieChart, School, FileText, Video, Moon, Sun,Icon, LogOut, EyeIcon } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {  PieChart, School, FileText, Video, Moon, Sun ,LogOut, EyeIcon } from "lucide-react"
+import { Avatar, AvatarFallback, } from "@/components/ui/avatar"
 
 import { useTheme } from "@/components/theme-provider"
 import { DialogDescription,DialogClose,Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
@@ -25,24 +25,10 @@ import { DialogDescription,DialogClose,Dialog, DialogContent, DialogTitle, Dialo
 
 
 export default function DashboardLayout() {
-    const [isMobileOpen, setIsMobileOpen] = useState(false)
-    const [isCollapsed, _setIsCollapsed] = useState(false)
+
     const { setTheme, theme } = useTheme()
 const naviagte = useNavigate();
-    const NavItem = ({ to, icon: Icon, label }) => (
-        <NavLink
-            to={to}
-            className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-muted ${isActive ? "bg-muted text-primary" : "text-muted-foreground"
-                } ${isCollapsed ? "justify-center" : ""}`
-            }
-            onClick={() => setIsMobileOpen(false)}
-            title={isCollapsed ? label : ""}
-        >
-            <Icon className="h-4 w-4" />
-            {!isCollapsed && <span>{label}</span>}
-        </NavLink>
-    )
+   
 
 const items = [
   {
@@ -142,7 +128,7 @@ const items = [
         </SidebarFooter>
     </Sidebar>
 <section className="h-full w-full flex flex-col justify-start items-center px-10 py-5">
-<nav className="w-full flex justify-between items-center h-fit">
+<nav className="w-full flex justify-between items-center h-fit mb-5">
 
 <SidebarTrigger/>
 

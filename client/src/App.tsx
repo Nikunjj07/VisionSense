@@ -4,12 +4,29 @@ import Dashboard from "./pages/Dashboard"
 import Classes from "./pages/Classes"
 import StudentRecords from "./pages/StudentRecords"
 import LiveCam from "./pages/LiveCam"
-
+import { Landing } from "./pages/Landing"
+import { LoginForm } from "./components/login"
+import { SignupForm } from "./components/signup"
 const router = createBrowserRouter([
+
   {
+
     path: "/",
-    element: <DashboardLayout />,
-    children: [
+    element: <Landing/>,
+   
+  },
+    {
+path:"/login",
+element:<LoginForm/>
+  },
+      {
+path:"/signup",
+element:<SignupForm/>
+  },
+  {
+    path :'/dashboard',
+    element:<DashboardLayout/>,
+   children: [
       {
         index: true,
         element: <Dashboard />,
@@ -26,8 +43,9 @@ const router = createBrowserRouter([
         path: "live",
         element: <LiveCam />,
       },
+     
     ],
-  },
+  }
 ])
 
 function App() {
